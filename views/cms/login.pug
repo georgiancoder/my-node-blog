@@ -1,0 +1,13 @@
+html
+  head
+    title Login
+    link(rel="stylesheet" href='/cms/css/style.css')
+
+    script(src='/cms/js/jquery-3.2.1.min.js')
+    script(src='/cms/js/materialize.min.js')
+  body
+    .login
+      form(method='post' action='/cms/login')
+        input(type='text' placeholder="Username" name='username')
+        input(type='password' placeholder='Password' name='password')
+        input(type='submit' value='Login')

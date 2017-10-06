@@ -1,0 +1,15 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1 add new blog categorie
+    
+    form(method='POST' action='/cms/blogcat/addnewcat')
+      div.row
+        input(type='text' class='col s3' placeholder='categorie name ka' name='catnameka')
+        input(type='text' class='col s3 offset-s1' placeholder='categorie name en' name='catnameen')
+        input(type='text' class='col s3 offset-s1' placeholder='categorie name ru' name='catnameru')
+      input(type='checkbox' name='hide' id='hidecat' value='') 
+      label(for='hidecat' checked='false') hide
+      input(type='submit' value='დამატება' class='btn')  

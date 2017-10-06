@@ -1,0 +1,12 @@
+extends index.pug
+
+block content
+
+  div.dashboard
+    div
+      h1 Add New Menu
+      form(action='/cms/menu/add' method='post')
+        input(type='text' placeholder='Menu Name' name='name')
+        input(type='checkbox' name='hide' id='hide')
+        label(for='hide') hide
+        input(type='submit' value='add Menu' class='btn')

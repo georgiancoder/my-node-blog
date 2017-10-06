@@ -1,0 +1,29 @@
+extends index.pug
+
+block content
+  
+  .mdl-grid.portfolio-max-width.portfolio-contact
+    .mdl-cell.mdl-cell--12-col.mdl-card.mdl-shadow--4dp
+      .mdl-card__title
+        h2.mdl-card__title-text Contact
+      .mdl-card__media
+        img.article-image(src=' images/contact-image.jpg', border='0', alt='')
+      .mdl-card__supporting-text
+        p
+          | Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+        p
+          | Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim eiusmod labore sit amet.
+        form(action='#')
+          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            input#Name.mdl-textfield__input(pattern='[A-Z,a-z, ]*', type='text')
+            label.mdl-textfield__label(for='Name') Name...
+            span.mdl-textfield__error Letters and spaces only
+          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            input#Email.mdl-textfield__input(type='text')
+            label.mdl-textfield__label(for='Email') Email...
+          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            textarea#note.mdl-textfield__input(type='text', rows='5')
+            label.mdl-textfield__label(for='note') Enter note
+          p
+            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(type='submit')
+              | Submit

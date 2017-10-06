@@ -1,0 +1,72 @@
+mixin getChildren(id, data)
+  each dt in data
+    if(dt.parentId == id)
+      ol
+        each d in data
+          if(d.parentId == id)
+            li(id="list_" + d.id)
+              div=d.name
+                span(data-id=d.id class='dellmenuitem') X
+                +getChildren(d.id, data)
+
+- function hasChildren(id, data){
+  - var has = false;
+  - for(i in data){
+    - if(data[i].parentId == id){
+      - has = true;
+    - }
+  - }
+    - return has;
+- }
+
+html
+  head
+    title #{title}
+    link(rel="stylesheet" href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    link(rel="stylesheet" href='/cms/css/materialize.min.css')
+    link(rel="stylesheet" href='/cms/css/skin.min.css')
+    link(rel="stylesheet" href='/cms/css/content.min.css')
+    link(rel="stylesheet" href='/cms/css/style.css')
+
+    script(src='/cms/js/jquery-3.2.1.min.js')
+    script(src='/cms/js/jquery-ui.min.js')
+    script(src='/cms/js/materialize.min.js')
+    script(src='/cms/js/tinymce.min.js')
+    script(src='/cms/js/theme.min.js')
+    script(src='/cms/js/jquery.mjs.nestedSortable.js')
+    script(src='/cms/js/functions.js')
+  body
+    div.header
+      a(href='/cms/dashboard' class='logo')
+      div.user
+        ul
+          li #{user.name}
+            ul
+              li
+                a(href='/cms/profile') Profile
+              li
+                a(href='/cms/logout') Logout
+      div.sidemenu
+        a(href='/cms/dashboard' class='dashboard')
+          i.material-icons dashboard
+          | Dashboard
+        ul
+          li
+            a(href='/cms/menu') menu
+            ul
+              li
+                a(href='/cms/menu/items') menu items
+          li
+            a(href='/cms/pages') pages
+          li
+            a(href="/cms/gallery") gallery
+          li
+            a blog
+            ul
+              li
+                a(href="/cms/blogcat") categories
+              li
+                a(href="/cms/blogcat/posts") posts
+          li
+            a contact
+block content

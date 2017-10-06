@@ -1,0 +1,22 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1 add new gallery
+    form.col.s12(action="/cms/gallery/addnew" method="POST" enctype="multipart/form-data")
+      div.row
+        div.input-field.col.s6
+          input(type="text" name="title" id="title")
+          label(for='title') Gallery Title
+        div.input-field.col.s12
+          textarea(id="desc" class='materialize-textarea' name='desc')
+          label(for="desc") Gallery Description
+      .row
+        .file-field.input-field.col.s6
+          .btn
+            span Upload
+            input(type='file' name="galleryImages" multiple)
+          .file-path-wrapper
+            input.file-path.validate(type='text', placeholder='Upload Gallery Images') 
+      input(type="submit" class='btn' value="Add Gallery")

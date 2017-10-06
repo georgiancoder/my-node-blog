@@ -1,0 +1,20 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1 posts
+    a(href='/cms/blogcat/addnewpost' class='btn') დამატება
+    
+    div.row
+        each post in posts
+          .col.s12.m3
+            .card
+              .card-image.postcover
+                img(src=post.mainpic)
+                span.card-title=post.title.ka
+              .card-content
+                p=post.desc.ka
+              .card-action
+                a(href='/cms/blog/editpost/' + post._id) edit
+                a(data-id=post._id onclick="deletePost(this);") delete

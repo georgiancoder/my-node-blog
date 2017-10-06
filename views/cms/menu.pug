@@ -1,0 +1,37 @@
+extends index.pug
+
+block content
+
+  div.dashboard
+     h1 menu
+     a(href='/cms/menu/add' class='btn add') Add new Menu
+     div.menu
+      if(menu.length > 0)
+       ul(class='collapsible' data-collapsible='accordion')
+        each m, index in menu
+          li
+            div(class='collapsible-header')
+              div
+                form(id='menu' + index)
+                  a(href='/cms/menu/addItems/' + m.id, class='name')=m.name
+                  input(type='checkbox', name='hide', id='hide' + index, checked=m.hide, disabled)
+                  label(for='hide' + index) hide
+                  button(class='btn update' onclick="updateMenu(event,'"+m.id+"'); return false;") update
+              div
+                button(class='btn-floating btn waves-effect waves-light edit' data-formid='menu' + index)
+                  i.material-icons mode_edit
+                button(class='btn-floating btn waves-effect waves-light delete' data-id=m.id)
+                  i.material-icons delete
+            div(class='collapsible-body')
+              h5 add new menu item
+              form(class='additem')
+                input(type='text' name='nameen' placeholder="Menu Item Name En")
+                input(type='text' name='nameru' placeholder="Menu Item Name Ru")
+                input(type='text' name='nameka' placeholder="Menu Item Name Ka")
+                input(type='text' name='url' placeholder='Url')
+                input(type='checkbox', name='hide', id='hidee' + index, checked=m.hide)
+                label(for='hidee' + index) hide
+                input(type='hidden' name='menuid' value=m.id)
+                button(class='btn' onclick='addMenuItem(event)') add menu item
+              div !{menusArr[index]}
+                input(type='button' data-id=m._id value='save structure' class='btn' onclick="saveStruct(this)")

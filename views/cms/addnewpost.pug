@@ -1,0 +1,108 @@
+extends index.pug
+
+block content
+  -var action = '';
+  -var submittext = '';
+  -var hiddencontent = '';
+  if(post)
+    -action='/cms/blogcat/updatepost'
+    -submittext = 'update post'
+    -hiddencontent = 'display: none;'
+  else
+    -action='/cms/blogcat/addnewpost'
+    -submittext = 'add post'
+    -hiddencontent = ''
+  div.dashboard
+    if(post)
+      h1 update post
+    else
+      h1 add new blog post
+    .row
+      if(post)
+        div.mainpic
+          img(src=post.mainpic width='200')
+          span(data-pic=post.mainpic onclick="deletePostPic(this)") Delete mainpic
+      form.col.s12( enctype="multipart/form-data" action=action method='POST')
+        input(type="hidden" name="author" value=user.name)
+        if(post)
+          input(type="hidden" name="postid" value=post._id)
+        .row
+          .file-field.input-field.col.s6#mainpic(style=hiddencontent)
+            .btn
+              span Upload Main Pic
+              if(post)
+                input(type='file' name="mainpic" value=post.mainpic)
+              else
+                input(type='file' name="mainpic")
+            .file-path-wrapper
+              input.file-path.validate(type='text', placeholder='Upload one or more files') 
+        .row
+          .row
+            .row.col.s6
+              ul.tabs
+                li.tab.col.s4
+                  a(href="#ka") ქართული
+                li.tab.col.s4
+                  a(href="#en") english
+                li.tab.col.s4
+                  a(href="#ru") russian
+        #ka
+          .row
+            .input-field.col.s6
+              input#title(type='text', data-length='200' name="titleka" value=(post)? post.title.ka : '')
+              label(for='title') სათაური
+          .row
+            .input-field.col.s12
+              textarea#textarea1.materialize-textarea(data-length='1000' name="descka")=(post) ? post.desc.ka : ''
+              label(for='textarea1') მოკლე აღწერა
+          .row
+            textarea(name="contentka" id='contentka' class='txtcontent')=(post) ? post.content.ka : ''
+        #en
+          .row
+            .input-field.col.s6
+              input#title(type='text', data-length='200' name="titleen" value=(post)? post.title.en : '')
+              label(for='title') Title
+          .row
+            .input-field.col.s12
+              textarea#textarea1.materialize-textarea(data-length='1000' name="descen")=(post) ? post.desc.en : ''
+              label(for='textarea1') Description
+          .row
+            textarea(name="contenten" id='contenten' class='txtcontent')=(post) ? post.content.en : ''
+        #ru
+          .row
+            .input-field.col.s6
+              input#title(type='text', data-length='200' name="titleru" value=(post)? post.title.ru : '')
+              label(for='title') заглавие
+          .row
+            .input-field.col.s12
+              textarea#textarea1.materialize-textarea(data-length='1000' name="descru")=(post) ? post.desc.ru : ''
+              label(for='textarea1') Описание
+          .row
+            textarea(name="contentru" id='contentru' class='txtcontent')=(post) ? post.content.ru : ''
+        .row
+          div.input-field.col.s4
+            select(multiple='' name='catIds')
+              each categorie in categories
+                if(post)
+                  -var selected = 0
+                    each pcat in post.catIds
+                      if(pcat == categorie._id)
+                        -selected = selected + 1
+                    if(selected)
+                      option(value=categorie._id selected)=categorie.name.ka
+                    else
+                      option(value=categorie._id)=categorie.name.ka
+                else
+                  option(value=categorie._id)=categorie.name.ka
+            label Select Categorie
+        input(type="submit" value=submittext class="btn")
+
+
+    div#modal1.modal
+      div.modal-content
+        h4 Select Gallery
+        select#gallerys
+          each gallery in galleries
+            option(value=gallery._id)=gallery.title
+      div.modal-footer
+        input(type='button' value='insert gallery' id='insertg' class='btn')

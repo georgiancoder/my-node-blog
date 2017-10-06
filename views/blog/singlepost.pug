@@ -1,0 +1,12 @@
+extends index.pug
+
+block content
+  
+  .mdl-grid.portfolio-max-width
+    .mdl-cell.mdl-cell--12-col.mdl-card.mdl-shadow--4dp
+      .mdl-card__title
+        h2.mdl-card__title-text=blogdata.title[lang]
+      .mdl-card__media
+        img.article-image(src=blogdata.mainpic, border='0', alt='')
+      .mdl-card__supporting-text
+        | !{blogdata.textCont}

@@ -1,0 +1,18 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1 Menu Items
+    ul.collapsible.popout
+      each item, index in items
+        li
+          div(class='collapsible-header' data-collapsible='accordion')=item.name.ka 
+            span(class="removeMenuItem" data-id=item._id onclick="deleteMenuItem(this)") X 
+          div.collapsible-body
+            form(class='row')
+              input(type='text' name='name' value=item.name.ka class='col s5' placeholder='Name')
+              input(type='text' name='url' value=item.url class='col s5 offset-s2' placeholder='Url')
+              input(type='checkbox' name='hide' id='check' + index checked=item.hide)
+              label(for='check' + index) hide
+              input(type='button' value='Update' data-id=item._id class='btn updateItem')
