@@ -19,7 +19,7 @@ var httpsOptions = {
 };
 
 
-mongoose.connect('mongodb://localhost/cms');
+//mongoose.connect('mongodb://localhost/cms');
 
 app.set('views','views');
 app.set('view engine','pug');
@@ -48,18 +48,25 @@ app.use(expressValidator({
 }));
 
 app.use(express.static(__dirname + '/public'));
-
+/*
 app.use(function(req,res,next){
   if(!req.session.lang){
     req.session.lang = 'ka';
   }
   next();
 });
-
-
 app.use('/cms',cmsRoutes);
 app.use('/',blogRouter);
 
 
-http.createServer(app).listen(3001);
-https.createServer(httpsOptions, app).listen(4433);
+app.listen(80);*/
+
+app.get('/',function(req, res){
+    consol
+    res.send('dsadasdas');
+});
+
+
+app.listen(3001);
+//http.createServer().listen(80);
+//https.createServer(httpsOptions, app).listen(4433);
