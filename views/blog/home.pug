@@ -11,4 +11,4 @@ block content
         .mdl-card__supporting-text
           | #{post.desc[lang]}
         .mdl-card__actions.mdl-card--border
-          a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent(href='/post/' + post.slug[lang]) Read more
+          a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent(href=lang + '/post/' + post.slug[lang]) Read more

@@ -13,10 +13,14 @@ var https = require('https');
 var http = require('http');
 var fs = require('fs');
 
+try{
 var httpsOptions = {
   key: fs.readFileSync('../../../../../../etc/letsencrypt/live/cattaclub.com/privkey.pem'),
   cert: fs.readFileSync('../../../../../../etc/letsencrypt/live/cattaclub.com/fullchain.pem')
 };
+}catch(err){
+
+}
 
 
 mongoose.connect('mongodb://localhost/cms');
@@ -62,4 +66,8 @@ app.use('/',blogRouter);
 
 
 http.createServer(app).listen(3001);
-https.createServer(httpsOptions, app).listen(4433);
+try{
+  https.createServer(httpsOptions, app).listen(4433);
+}catch(err){
+  console.log(err);
+}
