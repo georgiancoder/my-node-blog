@@ -7,6 +7,10 @@ block content
       .mdl-card__title
         h1.mdl-card__title-text=blogdata.title[lang]
       .mdl-card__media
-        img.article-image(src=blogdata.mainpic, border='0', alt='')
+        img.article-image(src=blogdata.mainpic, border='0', alt=blogdata.title[lang] title=blogdata.title[lang])
       .mdl-card__supporting-text
         | !{blogdata.textCont}
+        .fb-share-button(data-href='/' + lang + '/post/' + blogdata.slug[lang], data-layout='button_count', data-size='small', data-mobile-iframe='true')
+        .g-plus(data-action='share')
+        a(href='https://www.pinterest.com/pin/create/button/')
+          img(src='//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png')
