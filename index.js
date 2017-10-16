@@ -12,6 +12,7 @@ var expressValidator = require('express-validator');
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
+var config = require('./app/config');
 
 try{
 var httpsOptions = {
@@ -23,7 +24,7 @@ var httpsOptions = {
 }
 
 
-mongoose.connect('mongodb://localhost/cms');
+mongoose.connect(config.mongodb);
 
 app.set('views','views');
 app.set('view engine','pug');
