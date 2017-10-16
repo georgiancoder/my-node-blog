@@ -15,12 +15,12 @@ var fs = require('fs');
 var config = require('./app/config');
 
 try{
-var httpsOptions = {
-  key: fs.readFileSync('../../../../../../etc/letsencrypt/live/cattaclub.com/privkey.pem'),
-  cert: fs.readFileSync('../../../../../../etc/letsencrypt/live/cattaclub.com/fullchain.pem')
-};
+  var httpsOptions = {
+    key: fs.readFileSync('../../../../../../etc/letsencrypt/live/cattaclub.com/privkey.pem'),
+    cert: fs.readFileSync('../../../../../../etc/letsencrypt/live/cattaclub.com/fullchain.pem')
+  };
 }catch(err){
-
+  console.log(err);
 }
 
 

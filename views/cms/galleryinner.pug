@@ -1,0 +1,12 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1=gallery.title
+    p=gallery.desc
+    div.row
+      ul
+        each image in gallery.images
+          li.col.s2
+            img(src='/' + image.thumb)

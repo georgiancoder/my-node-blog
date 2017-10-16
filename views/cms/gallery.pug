@@ -8,6 +8,6 @@ block content
     
     div.collection
         each g in gallery
-          a.collection-item=g.title
+          a.collection-item(href="gallery/show/" + g._id)=g.title
             span.badge=g.images.length
             span.secondary-content(data-id=g._id onclick='deleteGallery(this);') delete

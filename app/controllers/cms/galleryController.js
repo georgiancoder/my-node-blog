@@ -9,6 +9,12 @@ var galleryController = {
     gallery.getAll(callback);
   },
 
+  getById: function(id, callback){
+    if(id){
+      gallery.getById(id, callback);
+    }
+  },
+
   deleteGallery: function(id, callback){
     if(id){
       gallery.delete(id, callback);

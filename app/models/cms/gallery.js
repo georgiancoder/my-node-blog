@@ -30,6 +30,11 @@ module.exports.addNew = function(data, callback){
   newGallery.save(callback);
 };
 
+module.exports.getById = function(id, callback){
+  var gallery = this;
+
+  gallery.findById(id, callback);
+};
 
 module.exports.getAll = function(callback){
   var gallery = this;

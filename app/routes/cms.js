@@ -244,6 +244,12 @@ cmsRouter.get('/gallery/addnew', userController.checkAuth, function(req, res){
 	res.render('cms/galleryadd',{title: 'Admin dashboard', user: req.user});
 });
 
+cmsRouter.get('/gallery/show/:id', userController.checkAuth, function(req, res){
+  galleryController.getById(req.params.id, function(err, data){
+    res.render('cms/galleryinner',{title: 'Admin dashboard', user: req.user, gallery: data});
+  });
+});
+
 cmsRouter.post('/gallery/addnew', userController.checkAuth, function(req, res){
   var date = new Date();
   var newDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay() + '-' + date.getHours() + '-' + date.getMinutes();

@@ -2,7 +2,6 @@ var express = require('express');
 var blogRouter = express.Router();
 var blogController = require('../controllers/blog/blogController');
 var config = require('../config');
-var Url = require('url');
 
 var langs = {
   en: '',
@@ -14,9 +13,10 @@ blogRouter.get('/:lang(ka|en|ru)?',function(req, res){
   if(req.params.lang)
     req.session.lang = req.params.lang;
 
-   langs.en = req.protocol + '://' + req.headers.host + '/en';
-   langs.ka = req.protocol + '://' + req.headers.host + '/ka';
-   langs.ru = req.protocol + '://' + req.headers.host + '/ru';
+    console.log(config.url);
+   langs.en = config.url + '/en';
+   langs.ka = config.url + '/ka';
+   langs.ru = config.url + '/ru';
   blogController.getPost(function(data){
     res.render('blog/home',{page: 'home', posts: data, lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl }});
   });
@@ -28,9 +28,10 @@ blogRouter.get('/:lang(ka|en|ru)?/contact',function(req, res){
   if(req.params.lang)
    req.session.lang = req.params.lang;
 
-   langs.en = req.protocol + '://' + req.headers.host + '/en/contact';
-   langs.ka = req.protocol + '://' + req.headers.host + '/ka/contact';
-   langs.ru = req.protocol + '://' + req.headers.host + '/ru/contact';
+   langs.en = config.url + '/en/contact';
+   langs.ka = config.url + '/ka/contact';
+   langs.ru = config.url + '/ru/contact';
+   console.log(req.originalUrl);
   blogController.getAllCategories(function(categories){
     blogController.getCatOrder(function(catorder){
       var cat = blogController.generateMenu(categories, catorder);
@@ -51,9 +52,9 @@ blogRouter.get('/:lang(ka|en|ru)?/post/:slug',function(req, res){
           res.send('post is not exists');
         }
         else{
-          langs.en = req.protocol + '://' + req.headers.host + '/en/post/' + data.slug.en;
-          langs.ka = req.protocol + '://' + req.headers.host + '/ka/post/' + data.slug.ka;
-          langs.ru = req.protocol + '://' + req.headers.host + '/ru/post/' + data.slug.ru;
+          langs.en = config.url + '/en/post/' + data.slug.en;
+          langs.ka = config.url + '/ka/post/' + data.slug.ka;
+          langs.ru = config.url + '/ru/post/' + data.slug.ru;
 
           blogController.replaceWithGallery(data.content[req.session.lang], function(contentdata){
             data.textCont = contentdata;
