@@ -104,7 +104,7 @@ var blogController = {
     blogpost.getBySlug(slug, lang, callback);
   },
 
-  replaceWithGallery: function(querystr, callback){
+  replaceWithGallery: function(querystr, lang, callback){
     var galleryids = querystr.match(/\[--!.*!--\]/g);
 
     for(i in galleryids){
@@ -121,7 +121,7 @@ var blogController = {
           if(data[i]._id == galleryids[j]){
             var gallerydata = "<ul class='gallery'>";
             for(k = 0; k < data[i].images.length; k++){
-              gallerydata += "<li><a href='/"+data[i].images[k].url+"'><img src='/"+data[i].images[k].thumb+"'></a></li>";
+              gallerydata += "<li><a href='/"+data[i].images[k].url+"'><img src='/"+data[i].images[k].thumb+"' title='"+data[i].images[k].title[lang]+"' alt='"+data[i].images[k].title[lang]+"'></a></li>";
             }
             gallerydata += "</ul>";
             querystr = querystr.replace("[--!"+galleryids[j]+"!--]",gallerydata);

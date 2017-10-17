@@ -56,7 +56,7 @@ blogRouter.get('/:lang(ka|en|ru)?/post/:slug',function(req, res){
           langs.ka = config.url + '/ka/post/' + data.slug.ka;
           langs.ru = config.url + '/ru/post/' + data.slug.ru;
 
-          blogController.replaceWithGallery(data.content[req.session.lang], function(contentdata){
+          blogController.replaceWithGallery(data.content[req.session.lang], req.session.lang, function(contentdata){
             data.textCont = contentdata;
             res.render('blog/singlepost',{blogdata: data, lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl }});
           });

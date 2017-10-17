@@ -15,6 +15,12 @@ var galleryController = {
     }
   },
 
+  updateGalleryImages: function(data,callback){
+    if(data.gid && data.imId){
+        gallery.updateImageInGallery(data,callback);
+    }
+  },
+
   deleteGallery: function(id, callback){
     if(id){
       gallery.delete(id, callback);

@@ -6,12 +6,34 @@ block content
     h1 add new gallery
     form.col.s12(action="/cms/gallery/addnew" method="POST" enctype="multipart/form-data")
       div.row
-        div.input-field.col.s6
-          input(type="text" name="title" id="title")
-          label(for='title') Gallery Title
-        div.input-field.col.s12
-          textarea(id="desc" class='materialize-textarea' name='desc')
-          label(for="desc") Gallery Description
+        ul.tabs
+          li.tab.col.s3 
+            a(href="#ka") ქართული
+          li.tab.col.s3
+            a(href="#en") ENGLISH
+          li.tab.col.s3
+            a(href="#ru") RUSSIAN
+        div#ka
+          div.input-field.col.s6
+            input(type="text" name="titleka" id="title")
+            label(for='title') გალერიის სათაური
+          div.input-field.col.s12
+            textarea(id="desc" class='materialize-textarea' name='descka')
+            label(for="desc") გალერიის აღწერა
+        div#en
+          div.input-field.col.s6
+            input(type="text" name="titleen" id="title2")
+            label(for='title2') Gallery Title
+          div.input-field.col.s12
+            textarea(id="desc2" class='materialize-textarea' name='descen')
+            label(for="desc2") Gallery Description
+        div#ru
+          div.input-field.col.s6
+            input(type="text" name="titleru" id="title3")
+            label(for='title3') Название галереи
+          div.input-field.col.s12
+            textarea(id="desc3" class='materialize-textarea' name='descru')
+            label(for="desc3") Галерея Описание
       .row
         .file-field.input-field.col.s6
           .btn

@@ -3,10 +3,48 @@ extends index.pug
 block content
   
   div.dashboard
-    h1=gallery.title
-    p=gallery.desc
+    h1=gallery.title.ka
+    p=gallery.desc.ka
     div.row
-      ul
-        each image in gallery.images
-          li.col.s2
-            img(src='/' + image.thumb)
+      each image, index in gallery.images
+        div.col.s2
+          div.card
+            div.card-image
+              img(src='/' + image.thumb)
+              span.card-title=image.title.ka
+            div.card-content
+              p=image.desc.ka
+            div.card-action
+              a(href="#modal" + index class="btn-floating modal-trigger")
+                i.material-icons edit
+              a(href="" class="btn-floating red" data-id=image._id)
+                i.material-icons remove_circle_outline
+      each image, index in gallery.images
+        div(id="modal" + index class="modal")
+          form
+            div.modal-content
+              h4="edit image " + index
+                ul.tabs
+                  li.tab.col.s3
+                    a(href="#ka" + index) ქართული
+                  li.tab.col.s3
+                    a(href="#en" + index) ENGLISH
+                  li.tab.col.s3
+                    a(href="#ru" + index) RUSSIAN
+                div(id="ka" + index)
+                  input(type="text" name="titleka" value=image.title.ka)
+                  textarea(type="text" name="descka" class="materialize-textarea")=image.desc.ka
+                div(id="en" + index)
+                  input(type="text" name="titleen" value=image.title.en)
+                  textarea(type="text" name="descen" class="materialize-textarea")=image.desc.en
+                div(id="ru" + index)
+                  input(type="text" name="titleru" value=image.title.ru)
+                  textarea(type="text" name="descru" class="materialize-textarea")=image.desc.ru
+            div.modal-footer
+              input(type='button' class='btn' value='Update Image' onclick="updateGalleryPic('"+gallery._id+"','"+image._id+"');")
+              a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat") close
+      script.
+        $(document).ready(function(){
+          // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+          $('.modal').modal();
+        });

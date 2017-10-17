@@ -161,7 +161,9 @@ function deleteGallery(gallery){
       if(res.msg == 'success')
         $(gallery).parent().remove();
     }
-  })
+  });
+  event.preventDefault();
+  return false;
 }
 
 function removeCategorie(categorie){
@@ -258,4 +260,37 @@ function saveStruct(el){
       alert('structure saved');
     }
   });
+}
+
+
+function updateGalleryPic(gId, picId){
+  var btn = event.target;
+
+  var data = new Object();
+  data.gid = gId;
+  data.imId = picId;
+  data.titleka = btn.form.titleka.value;
+  data.titleen = btn.form.titleen.value;
+  data.titleru = btn.form.titleru.value;
+  data.descka = btn.form.descka.value;
+  data.descen = btn.form.descen.value;
+  data.descru = btn.form.descru.value;
+
+  console.log(data);
+  if(data.gid && data.imId){
+    $.ajax({
+      url: '/cms/gallery/updateimage',
+      method: 'PUT',
+      dataType: 'json',
+      data: { gid: data.gid, imId: data.imId, titleka: data.titleka, titleen: data.titleen, titleru: data.titleru, descka: data.descka, descen: data.descen, descru: data.descru },
+      success: function(res){
+        if(res.msg == 'success')
+        {
+          $('.modal').modal('close');
+        }
+      }
+    });
+  }
+
+  return false;
 }

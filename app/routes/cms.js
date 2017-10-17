@@ -292,8 +292,16 @@ cmsRouter.post('/gallery/addnew', userController.checkAuth, function(req, res){
               for(i=0; i<req.files.length; i++)
               {
                 var newImage = new Object();
-                newImage.title = 'default title';
-                newImage.desc = 'default image description';
+                newImage.title = new Object();
+                newImage.title.en = "default title en";
+                newImage.title.ka = "default title ka";
+                newImage.title.ru = "default title ru";
+
+                newImage.desc = new Object();
+                newImage.desc.en = "default image description en";
+                newImage.desc.ka = "default image description ka";
+                newImage.desc.ru = "default image description ru";
+
                 newImage.url = 'uploads/gallery/' + newDate + '/' + req.files[i].filename;
                 var filen = req.files[i].filename;
                 gm('public/uploads/gallery/' + newDate + '/' + req.files[i].filename)
@@ -307,13 +315,14 @@ cmsRouter.post('/gallery/addnew', userController.checkAuth, function(req, res){
               }
               req.body.images = images;
               req.body.dir = 'uploads/gallery/' + newDate;
-            req.checkBody('title','title is required').notEmpty();
+            req.checkBody('titleka','title is required').notEmpty();
               req.getValidationResult()
               .then(function(result){
                 if(!result.isEmpty()){
                   res.json(result.array());
                 }
                 else {
+                  console.log(req.body);
                   galleryController.addGallery(req.body,function(err, data){
                     if(err) throw err;
                     res.redirect('/cms/gallery');
@@ -325,6 +334,13 @@ cmsRouter.post('/gallery/addnew', userController.checkAuth, function(req, res){
       	});
 
 	});
+});
+
+cmsRouter.put('/gallery/updateimage',userController.checkAuth, function(req, res){
+  galleryController.updateGalleryImages(req.body,function(err, data){
+      if(err) throw err;
+      res.json({msg: 'success'});
+  });
 });
 
 cmsRouter.delete('/blog/deletepost',userController.checkAuth, function(req, res){
