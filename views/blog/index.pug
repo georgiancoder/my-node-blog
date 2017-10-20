@@ -23,7 +23,7 @@ html(lang=lang)
     meta(property="og:type" content="website")
     meta(property="og:title" content=(blogdata) ? blogdata.title[lang] : 'blog.cattaclub.com')
     meta(property="og:description" content=(blogdata) ? blogdata.desc[lang] : 'blog.cattaclub.com')
-    meta(property="og:image" content=(blogdata) ? blogdata.mainpic : '/images/cattaclub-logo.png')
+    meta(property="og:image" content=(blogdata) ? fb.originUrl + blogdata.mainpic : fb.originUrl + '/images/cattaclub-logo.png')
   body
     #fb-root
     script.

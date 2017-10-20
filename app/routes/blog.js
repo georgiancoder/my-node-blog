@@ -13,12 +13,11 @@ blogRouter.get('/:lang(ka|en|ru)?',function(req, res){
   if(req.params.lang)
     req.session.lang = req.params.lang;
 
-    console.log(config.url);
    langs.en = config.url + '/en';
    langs.ka = config.url + '/ka';
    langs.ru = config.url + '/ru';
   blogController.getPost(function(data){
-    res.render('blog/home',{page: 'home', posts: data, lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl }});
+    res.render('blog/home',{page: 'home', posts: data, lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl, originUrl: config.url }});
   });
 });
 
@@ -35,7 +34,7 @@ blogRouter.get('/:lang(ka|en|ru)?/contact',function(req, res){
   blogController.getAllCategories(function(categories){
     blogController.getCatOrder(function(catorder){
       var cat = blogController.generateMenu(categories, catorder);
-      res.render('blog/contact',{categories: cat, page: 'contact', lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl }});
+      res.render('blog/contact',{categories: cat, page: 'contact', lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl, originUrl: config.url }});
     });
   });
 
@@ -58,7 +57,7 @@ blogRouter.get('/:lang(ka|en|ru)?/post/:slug',function(req, res){
 
           blogController.replaceWithGallery(data.content[req.session.lang], req.session.lang, function(contentdata){
             data.textCont = contentdata;
-            res.render('blog/singlepost',{blogdata: data, lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl }});
+            res.render('blog/singlepost',{blogdata: data, lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl, originUrl: config.url }});
           });
         }
     });
