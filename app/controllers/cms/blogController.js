@@ -132,6 +132,10 @@ var blogController = {
     });
   },
 
+  getAllPost: function(callback){
+    blogpost.get(callback);
+  },
+
   deletePost: function(id, callback){
     if(id){
       blogpost.deletePost(id,callback);

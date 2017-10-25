@@ -8,6 +8,9 @@ var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
 var gm = require('gm');
+var config = require('../config');
+
+var siteLangs = JSON.parse(fs.readFileSync(__dirname + '/../langs.json','utf-8'));
 
 cmsRouter.get('/',function(req, res){
   res.render('cms/login');
@@ -15,6 +18,55 @@ cmsRouter.get('/',function(req, res){
 
 cmsRouter.get('/dashboard',userController.checkAuth, function(req,res){
   res.render('cms/dashboard',{title: 'Admin dashboard', user: req.user});
+});
+
+cmsRouter.get('/seo', userController.checkAuth, function(req, res){
+  var xml = fs.readFileSync(__dirname + '/../../public/sitemap.xml','utf-8');
+
+  res.render('cms/seo',{title: 'SEO optimisation', user: req.user, sitemap: xml, meta: siteLangs.meta});
+});
+
+cmsRouter.post('/meta', userController.checkAuth, function(req, res){
+  if(req.body){
+      siteLangs.meta.desc.ka = req.body.descka;
+      siteLangs.meta.desc.en = req.body.descen;
+      siteLangs.meta.desc.ru = req.body.descru;
+
+      var newLang = JSON.stringify(siteLangs, null, 4);
+      fs.writeFileSync(__dirname + '/../langs.json', newLang, 'utf-8');
+      res.redirect('/cms/seo');
+  }
+});
+
+cmsRouter.get('/updatesitemap',userController.checkAuth, function(req, res){
+  var xml = '<?xml version="1.0" encoding="UTF-8"?>\n\
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n\
+    <url>\n\
+        <loc>https://blog.cattaclub.com/</loc>\n\
+        <xhtml:link rel="alternate" hreflang="ka" href="https://blog.cattaclub.com/ka/"/>\n\
+        <xhtml:link rel="alternate" hreflang="en" href="https://blog.cattaclub.com/en/"/>\n\
+        <xhtml:link rel="alternate" hreflang="ru" href="https://blog.cattaclub.com/ru/"/>\n\
+    </url>\n\
+    <url>\n\
+        <loc>https://blog.cattaclub.com/contact</loc>\n\
+        <xhtml:link rel="alternate" hreflang="ka" href="https://blog.cattaclub.com/ka/contact/"/>\n\
+        <xhtml:link rel="alternate" hreflang="en" href="https://blog.cattaclub.com/en/contact/"/>\n\
+        <xhtml:link rel="alternate" hreflang="ru" href="https://blog.cattaclub.com/ru/contact/"/>\n\
+    </url>\n';
+    blogController.getAllPost(function(err, data){
+      for(i in data){
+        xml+= '    <url>\n\
+        <loc>'+config.url + '/ka/post/'+ data[i].slug.ka + '</loc>\n\
+        <xhtml:link rel="alternate" hreflang="ka" href="'+config.url + '/ka/post/'+ data[i].slug.ka+'"/>\n\
+        <xhtml:link rel="alternate" hreflang="en" href="'+config.url + '/en/post/'+ data[i].slug.en+'"/>\n\
+        <xhtml:link rel="alternate" hreflang="ru" href="'+config.url + '/ru/post/'+ data[i].slug.ru+'"/>\n\
+    </url>\n';
+      }
+      xml += '</urlset>';
+      fs.writeFileSync(__dirname + '/../../public/sitemap.xml',xml,'utf-8');
+      res.redirect('/cms/seo');
+    });
+
 });
 
 cmsRouter.get('/menu',userController.checkAuth,function(req, res){
@@ -459,10 +511,6 @@ cmsRouter.post('/blogcat/updatepost',userController.checkAuth, function(req, res
               res.json(result.array());
             }
             else {
-              // blogController.addBlogPost(req.body,function(err, data){
-              //   if(err) throw err;
-              //   res.redirect('/cms/blogcat/posts')
-              // });
               blogController.updateBlogPost(req.body,function(err,data){
                 if(err) throw err;
                 res.redirect('/cms/blogcat/posts');
@@ -472,6 +520,7 @@ cmsRouter.post('/blogcat/updatepost',userController.checkAuth, function(req, res
       }
   	});
 });
+
 
 cmsRouter.post('/login',userController.login);
 

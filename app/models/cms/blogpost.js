@@ -41,14 +41,12 @@ module.exports.addNewPost = function(data, callback){
   slugska = data.titleka.replace(/ /g,'-');
   slugsru = data.titleru.replace(/ /g,'-');
 
-  post.find({$or: [{'slug.en': slugsen}, {'slug.ka': slugska}, {'slug.ru': slugsru}]},function(err, slugs){
-    if(err) throw err;
 
-    if(slugs && slugs.length > 0){
-      slugsen = slugsen + slugs.length;
-      slugska = slugska + slugs.length;
-      slugsru = slugsru + slugs.length;
-    }
+    var d = new Date();
+
+      slugsen = slugsen + d.getTime();
+      slugska = slugska + d.getTime();
+      slugsru = slugsru + d.getTime();
 
     newPost.title = {
       en: data.titleen,
@@ -80,7 +78,6 @@ module.exports.addNewPost = function(data, callback){
     }
 
     newPost.save(callback);
-  });
 
 
 };
@@ -139,15 +136,12 @@ module.exports.update = function(data, callback){
   else if(data.catIds && !util.isArray(data.catIds)){
     catids.push(data.catIds);
   }
-  post.find({$and: [{_id: { $ne: postid}},{$or: [{'slug.en': slugsen}, {'slug.ka': slugska}, {'slug.ru': slugsru}]}]},function(err, slugs){
 
-    if(err) throw err;
+  var d = new Date();
+      slugsen = slugsen + d.getTime();
+      slugska = slugska + d.getTime();
+      slugsru = slugsru + d.getTime();
 
-    if(slugs && slugs.length > 0){
-      slugsen = slugsen + slugs.length;
-      slugska = slugska + slugs.length;
-      slugsru = slugsru + slugs.length;
-    }
 
     updateobj.author = data.author;
     updateobj.title = {
@@ -175,6 +169,5 @@ module.exports.update = function(data, callback){
 
     post.findByIdAndUpdate(data.postid,updateobj, callback);
 
-  });
 
 };

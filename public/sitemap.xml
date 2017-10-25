@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://blog.cattaclub.com/</loc>
+        <xhtml:link rel="alternate" hreflang="ka" href="https://blog.cattaclub.com/ka/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://blog.cattaclub.com/en/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://blog.cattaclub.com/ru/"/>
+    </url>
+    <url>
+        <loc>https://blog.cattaclub.com/contact</loc>
+        <xhtml:link rel="alternate" hreflang="ka" href="https://blog.cattaclub.com/ka/contact/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://blog.cattaclub.com/en/contact/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://blog.cattaclub.com/ru/contact/"/>
+    </url>
+    <url>
+        <loc>http://blog.cattaclub.com/ka/post/dsdasd-sad-as1508926266063</loc>
+        <xhtml:link rel="alternate" hreflang="ka" href="http://blog.cattaclub.com/ka/post/dsdasd-sad-as1508926266063"/>
+        <xhtml:link rel="alternate" hreflang="en" href="http://blog.cattaclub.com/en/post/1508926266063"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="http://blog.cattaclub.com/ru/post/1508926266063"/>
+    </url>
+</urlset>

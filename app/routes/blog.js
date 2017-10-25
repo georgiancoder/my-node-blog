@@ -2,12 +2,16 @@ var express = require('express');
 var blogRouter = express.Router();
 var blogController = require('../controllers/blog/blogController');
 var config = require('../config');
+var fs = require('fs');
 
+
+var siteLangs = JSON.parse(fs.readFileSync(__dirname + '/../langs.json','utf-8'));
 var langs = {
   en: '',
   ka: '',
   ru: ''
 };
+
 
 blogRouter.get('/:lang(ka|en|ru)?',function(req, res){
   if(req.params.lang)
@@ -30,11 +34,10 @@ blogRouter.get('/:lang(ka|en|ru)?/contact',function(req, res){
    langs.en = config.url + '/en/contact';
    langs.ka = config.url + '/ka/contact';
    langs.ru = config.url + '/ru/contact';
-   console.log(req.originalUrl);
   blogController.getAllCategories(function(categories){
     blogController.getCatOrder(function(catorder){
       var cat = blogController.generateMenu(categories, catorder);
-      res.render('blog/contact',{categories: cat, page: 'contact', lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl, originUrl: config.url }});
+      res.render('blog/contact',{sitelang: siteLangs.contact, categories: cat, page: 'contact', lang: req.session.lang, langs: langs, fb: { url: config.url + req.originalUrl, originUrl: config.url }});
     });
   });
 
@@ -44,7 +47,6 @@ blogRouter.get('/:lang(ka|en|ru)?/post/:slug',function(req, res){
   if(req.params.lang)
    req.session.lang = req.params.lang;
 
-   console.log(req.originalUrl);
   if(req.params.slug){
     blogController.getPostBySlug(req.params.slug,req.session.lang,function(err, data){
         if(data == null){

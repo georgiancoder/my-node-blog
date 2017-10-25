@@ -1,0 +1,27 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1 SEO
+    div.row
+      div.sitemap.col.s4
+        pre=sitemap
+        a(href="/cms/updatesitemap" class="btn") Generate Sitemap.xml
+      div.meta.col.s4
+        h5 meta information
+        form(action='/cms/meta' method="POST")
+            ul.tabs
+              li.tab
+                a(href="#ka") ქართული
+              li.tab
+                a(href="#en") english
+              li.tab
+                a(href="#ru") russian
+            div#ka
+              textarea(name="descka" placeholder="საიტის აღწერა")=meta.desc.ka
+            div#en
+              textarea(name="descen" placeholder="Site Descripton")=meta.desc.en
+            div#ru
+              textarea(name="descru" placeholder="описание сайта")=meta.desc.ru
+            input(type='submit' value='updatemeta' class="btn")
