@@ -1,0 +1,15 @@
+extends index.pug
+
+block content
+  
+  div.dashboard
+    h1 mailbox
+    div
+      ul.collapsible(data-collapsible="accordion")
+        each mail in mails
+          li
+            div.collapsible-header
+              div
+                i.material-icons mail_outline
+                | #{mail.name + ' from: ' + mail.email}
+            div.collapsible-body=mail.msg

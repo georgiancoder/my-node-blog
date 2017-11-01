@@ -4,6 +4,7 @@ var userController = require('../controllers/cms/userController');
 var menuController = require('../controllers/cms/menuController');
 var blogController = require('../controllers/cms/blogController');
 var galleryController = require('../controllers/cms/galleryController');
+var mailController = require('../controllers/cms/mailController');
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
@@ -471,6 +472,12 @@ cmsRouter.delete('/post/deletemainpic',userController.checkAuth, function(req, r
       res.json({msg: 'success'});
     }
 });
+
+
+cmsRouter.get('/inbox',userController.checkAuth, function(req, res){
+    mailController.getMessages(req,res);
+});
+
 
 cmsRouter.post('/blogcat/updatepost',userController.checkAuth, function(req, res){
   var storage = multer.diskStorage({

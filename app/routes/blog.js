@@ -1,6 +1,7 @@
 var express = require('express');
 var blogRouter = express.Router();
 var blogController = require('../controllers/blog/blogController');
+var mailController = require('../controllers/cms/mailController');
 var config = require('../config');
 var fs = require('fs');
 
@@ -11,11 +12,6 @@ var langs = {
   ka: '',
   ru: ''
 };
-
-// blogRouter.use(function(req, res, next){
-//
-//   next();
-// });
 
 blogRouter.get('/:lang(ka|en|ru)?',function(req, res){
   if(req.params.lang)
@@ -29,7 +25,9 @@ blogRouter.get('/:lang(ka|en|ru)?',function(req, res){
   });
 });
 
-
+blogRouter.post('/email',function(req, res){
+  mailController.addNew(req, res);
+});
 
 blogRouter.get('/:lang(ka|en|ru)?/contact',function(req, res){
   if(req.params.lang)
